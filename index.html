@@ -131,6 +131,15 @@
             $("#btnThemCuoi").click();
           }
         });
+
+        // đổi chữ thẻ h1 và placeholder của ô input
+        $("#btnDoiTieuDe").click(function () {
+          $("#tieuDe").text("Danh sách lớp JavaScript");
+          $("#txtTen").attr("placeholder", "Nhập tên bạn học...");
+        });
+
+        // THÊM MỚI: đổi chữ nút "Thêm vào cuối"
+        $("#btnThemCuoi").text("Thêm sinh viên mới");
       });
     </script>
   </body>
