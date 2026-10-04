@@ -49,8 +49,8 @@
   <body>
     <div class="demo-box">
       <form id="form">
-        <label for="oten">Tên món:</label>
-        <input type="text" name="oten" id="oten" placeholder="VD: pizza" />
+        <label for="o-ten">Tên món:</label>
+        <input type="text" name="o-ten" id="o-ten" placeholder="VD: pizza" />
         <button type="submit">Thêm món</button>
       </form>
 
@@ -58,63 +58,37 @@
     </div>
 
     <script>
-      // ô nhập: click vào thì viền xanh, bỏ ra thì về như cũ
-      $("#oten").on("focus", function () {
-        $(this).css("border", "2px solid blue");
-      });
+      const form = document.querySelector("#form");
+      const oTen = document.querySelector("#o-ten");
+      const ds = document.querySelector("#ds");
 
-      $("#oten").on("blur", function () {
-        $(this).css("border", "");
-      });
+      form.addEventListener("submit", (e) => {
+        e.preventDefault(); // không để trang tải lại
 
-      $("#form").on("submit", function (e) {
-        e.preventDefault();
+        const ten = oTen.value.trim();
+        if (ten === "") return; // tên null bỏ qua
 
-        const ten = $("#oten").val().trim();
-        if (ten === "") return;
+        // tạo dòng mới
+        const li = document.createElement("li");
 
-        const li = $("<li></li>");
-        const span = $("<span></span>").text(ten);
-        const nutXoa = $("<button type='button'>X</button>");
+        // tên món ăn
+        const span = document.createElement("span");
+        span.textContent = ten;
 
-        // rê chuột vào dòng thì đổi màu nền
-        li.hover(
-          function () {
-            li.css("background-color", "#f0f8ff");
-          },
-          function () {
-            li.css("background-color", "");
-          },
-        );
+        const nutXoa = document.createElement("button");
+        nutXoa.type = "button"; // không submit
+        nutXoa.textContent = "X";
 
-        // bấm vào tên món thì gạch ngang, bấm lần nữa thì bỏ gạch
-        span.on("click", function () {
-          const gach = span.css("text-decoration-line");
-          if (gach === "line-through") {
-            span.css({ "text-decoration": "none", color: "black" });
-          } else {
-            span.css({ "text-decoration": "line-through", color: "gray" });
-          }
+        nutXoa.addEventListener("click", () => {
+          li.remove(); // xóa đúng dòng chứa nút này
         });
 
-        // rê chuột vào nút X thì đổi đỏ
-        nutXoa.hover(
-          function () {
-            nutXoa.css({ "background-color": "red", color: "white" });
-          },
-          function () {
-            nutXoa.css({ "background-color": "", color: "" });
-          },
-        );
-
-        nutXoa.on("click", function () {
-          li.remove();
-        });
-
+        // Ghép vào li rồi gắn vào danh sách
         li.append(span, nutXoa);
-        $("#ds").append(li);
+        ds.append(li);
 
-        $("#oten").val("").focus();
+        oTen.value = ""; // clear input
+        oTen.focus(); // sẵn sàng gõ món tiếp theo
       });
     </script>
   </body>
