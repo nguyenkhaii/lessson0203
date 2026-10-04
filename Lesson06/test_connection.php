@@ -21,4 +21,4 @@ try {
     die("Không kết nối được database: " . $e->getMessage()
         . "\nHãy kiểm tra: MySQL đã bật chưa? Đã chạy file database.sql chưa? Mật khẩu trong config.php đúng chưa?\n");
 }
-?>    h
+?> 
